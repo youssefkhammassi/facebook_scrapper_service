@@ -50,7 +50,7 @@ class FacebookPostsScraper:
             return BeautifulSoup.BeautifulSoup(resp.text, 'lxml')
         return resp
 
-    # The first time we login
+    # first time login
     def login(self):
         # Get the content of HTML of mobile Login Facebook page
         url_home = "https://m.facebook.com/"
@@ -66,7 +66,7 @@ class FacebookPostsScraper:
         try_number = soup.find("input", {"name": "try_number"}).get("value")
         unrecognized_tries = soup.find("input", {"name": "unrecognized_tries"}).get("value")
 
-        # This is the url to send the login params to Facebook
+        # Url to send the login params to Facebook
         url_login = "https://m.facebook.com/login/device-based/regular/login/?refsrc=https%3A%2F%2Fm.facebook.com%2F&lwv=100&refid=8"
         payload = {
             "lsd": lsd,
@@ -101,7 +101,7 @@ class FacebookPostsScraper:
         if resp is None:
             raise Exception(f"The login request couldn't be made: {url_redirect}")
 
-        # Finally we get the cookies from the session and save it in a file for future usage
+        # cookies from the session and save it in a file for future usage
         cookies = self.session.cookies
         f = open(self.cookies_path, 'wb')
         pickle.dump(cookies, f)
@@ -117,9 +117,7 @@ class FacebookPostsScraper:
             else:
                 url_profile = f'{url_profile}?v=timeline'
 
-        is_group = '/groups/' in url_profile
-
-        # Make a simple GET request
+        # GET request
         soup = self.make_request(url_profile)
         if soup is None:
             print(f"Couldn't load the Page: {url_profile}")
