@@ -10,15 +10,13 @@ class FacebookPostsScraper:
     def __init__(self, email, password, post_url_text='Full Story'):
         self.email = email
         self.password = password
-        self.headers = {  # This is the important part: Nokia C3 User Agent
+        self.headers = {
             'User-Agent': 'NokiaC3-00/5.0 (07.20) Profile/MIDP-2.1 Configuration/CLDC-1.1 Mozilla/5.0 AppleWebKit/420+ (KHTML, like Gecko) Safari/420+'
         }
         self.session = requests.session()  # Create the session for the next requests
         self.cookies_path = 'session_facebook.cki'  # Give a name to store the session in a cookie file.
         self.post_url_text = post_url_text
 
-        # Evaluate if NOT exists a cookie file, if NOT exists the we make the Login request to Facebook,
-        # else we just load the current cookie to maintain the older session.
         if self.new_session():
             self.login()
 

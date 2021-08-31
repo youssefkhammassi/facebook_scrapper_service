@@ -1,6 +1,6 @@
 import pandas as pd
 
-from scrapper import FacebookPostsScraper
+from src.scrapper import FacebookPostsScraper
 
 
 class FbDataLoader:

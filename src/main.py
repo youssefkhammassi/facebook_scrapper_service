@@ -1,13 +1,16 @@
 from fastapi import FastAPI
 import sqlite3 as sl
-from get_data import FbDataLoader
+from src.get_data import FbDataLoader
 app = FastAPI()
 
 db = sl.connect('../my-test.db')
 
+@app.get("/")
+async def root():
+    return {"message": "Hello"}
 
 @app.get("/PING")
-async def root():
+async def health_check():
     return {"message": "PONG"}
 
 
