@@ -2,8 +2,11 @@ version: '3.8'
 
 services:
   web:
+
     build: .
     command: uvicorn src.main:app --host 0.0.0.0
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8008/PING" ]
     volumes:
       - .:/src
     ports:
